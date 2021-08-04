@@ -1,5 +1,8 @@
-Vándalos
-========
+# Vándalos
+
+Este es un proyecto realizado por mi para el Observatorio de Contenidos Audiovisuales y Multimediales (OCAM) de la Universidad de Antioquia.
+
+## Preparar el proyecto para producción
 
 Para instalar el ofuscador:
 
