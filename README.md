@@ -2,6 +2,12 @@
 
 Este es un proyecto realizado por mi para el Observatorio de Contenidos Audiovisuales y Multimediales (OCAM) de la Universidad de Antioquia.
 
+## Iniciar servidor de desarrollo
+
+Para iniciar el servidor:
+
+    $ npm run dev
+
 ## Preparar el proyecto para producción
 
 Para instalar el ofuscador:
