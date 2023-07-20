@@ -1,9 +1,9 @@
 
 
 import * as THREE from 'three';
-import { resources } from './resources.js';
-import { CSS3DRenderer, CSS3DObject } from 'three/addons/renderers/CSS3DRenderer.js';
+import { FontLoader } from 'three/addons/loaders/FontLoader.js';
 import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
+import { resources } from './resources.js';
 
 export class Images {
     constructor(env) {
@@ -23,6 +23,27 @@ export class Images {
         galleries.forEach(g => {
             env.scene.add(g);
         });
+
+        const fontLoader = new FontLoader();
+
+        fontLoader.load(
+            '/assets/fonts/Roboto_Regular.json',
+            (font) =>
+            {
+                const textMesh = new THREE.Mesh(
+                    new TextGeometry(
+                        'Vándalos',
+                        {
+                            font: font,
+                            size: 1,
+                            height: 0.4
+                        }
+                    ),
+                    new THREE.MeshBasicMaterial({color: 0x4a342e})
+                );
+                env.scene.add(textMesh);
+            }
+        )
     }
 
     createGallery(width, height, galleryMaterial) {
