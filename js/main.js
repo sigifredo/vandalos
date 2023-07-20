@@ -3,12 +3,14 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import * as imgs from './Images';
+import * as lghts from './Lights';
 import * as environment from './environment';
 
 const env = environment.initEnvironment(true);
 environment.initListeners(env);
 
 const images = new imgs.Images(env);
+const lights = new lghts.Lights(env);
 
 /**
  * Controls

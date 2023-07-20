@@ -3,27 +3,44 @@
 import * as THREE from 'three';
 import { resources } from './resources.js';
 import { CSS3DRenderer, CSS3DObject } from 'three/addons/renderers/CSS3DRenderer.js';
+import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
 
 export class Images {
     constructor(env) {
-        const material = new THREE.LineBasicMaterial({ color: 0x808080 });
 
-        resources.forEach(resource => {
-            if (resource.type == 'img') {
-                let objectCSS = this.createImage(resource);
-                env.scene.add(this.createLine(objectCSS.position, material));
-                env.scene.add(objectCSS);
-            } else if (resource.type == 'yt') {
-                // let objectCSS = createYTVideo(resource);
-                // scene.add(this.createLine(objectCSS.position, material));
-                // scene.add(objectCSS);
-            }
+        let galleryMaterial = new THREE.MeshBasicMaterial({color: 0xc5ae8e, side: THREE.DoubleSide});
+        let galleries = new Array();
+
+        galleries.push(this.createGallery(10, 10, galleryMaterial));
+        galleries.push(this.createGallery(10, 3, galleryMaterial));
+        galleries.push(this.createGallery(3, 10, galleryMaterial));
+        galleries.push(this.createGallery(10, 3, galleryMaterial));
+
+        galleries[1].position.x = 10;
+        galleries[2].position.z = 10;
+        galleries[3].position.x = -10;
+
+        galleries.forEach(g => {
+            env.scene.add(g);
         });
+    }
+
+    createGallery(width, height, galleryMaterial) {
+        let gallery = new THREE.Mesh(
+            new THREE.PlaneGeometry(width, height),
+            galleryMaterial
+        );
+
+        gallery.rotation.x = Math.PI * 0.5;
+        gallery.position.y = 0;
+
+        return gallery;
     }
 
     update() {
     }
 
+    /*
     createImage(image) {
         const imgElement = document.createElement('img');
         imgElement.className = 'element';
@@ -63,6 +80,7 @@ export class Images {
     
         return objectCSS;
     }
+    */
 }
 
 export default Images;

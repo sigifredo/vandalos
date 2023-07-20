@@ -21,7 +21,7 @@ export function initEnvironment(debug = false) {
     env.scene = new THREE.Scene();
 
     env.camera = new THREE.PerspectiveCamera(75, canvasSize.width/canvasSize.height);
-    env.camera.position.set(0, 0, 3000);
+    env.camera.position.set(-3, 3, 3);
     env.scene.add(env.camera);
 
     env.renderer = new THREE.WebGLRenderer({
