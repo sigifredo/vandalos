@@ -10,14 +10,24 @@ export class Images {
         this.addFloor(env);
         this.addPanels(env);
         this.addText(env);
+
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+        const pointLight = new THREE.PointLight(0xffffff, 0.5);
+
+        pointLight.position.x = 2;
+        pointLight.position.y = 3;
+        pointLight.position.z = 4;
+
+        env.scene.add(ambientLight);
+        env.scene.add(pointLight);
     }
 
     addFloor(env) {
         const galleryGeometry = new THREE.CircleGeometry(15, 29);
-        const galleryMaterial = new THREE.MeshBasicMaterial({
+        const galleryMaterial = new THREE.MeshStandardMaterial({
             color: 0xc5ae8e,
             side: THREE.DoubleSide,
-            wireframe: true
+            // wireframe: true
         });
 
         const gallery = new THREE.Mesh(galleryGeometry, galleryMaterial);
@@ -25,19 +35,29 @@ export class Images {
         gallery.position.y = 0;
 
         env.scene.add(gallery);
+
+        if (env.gui) {
+            const panelMaterial = env.gui.addFolder('Floor material');
+            panelMaterial.addColor(galleryMaterial, 'color');
+            panelMaterial.add(galleryMaterial, 'metalness').min(0).max(1).step(0.0001);
+            panelMaterial.add(galleryMaterial, 'roughness').min(0).max(1);
+        }
     }
 
     addPanels(env) {
         const N_PANELS = 29;
         let angleStep = (Math.PI * 2.0) / N_PANELS;
 
+        const material = new THREE.MeshStandardMaterial({
+            color: 0xffffff,
+            // wireframe: true
+        });
+        material.metalness = 0.2;
+        material.roughness = 0.5;
+
         for (let i = 0; i < N_PANELS; i++) {
             const theta = i * angleStep;
             const geometry = new THREE.BoxGeometry(1, 2, 0.3);
-            const material = new THREE.MeshBasicMaterial({
-                color: 0xffffff,
-                wireframe: true
-            });
             const panel = new THREE.Mesh(geometry, material);
 
             let x = 15.5 * Math.cos(theta);
@@ -49,6 +69,13 @@ export class Images {
             panel.position.z = z;
 
             env.scene.add(panel);
+        }
+
+        if (env.gui) {
+            const panelMaterial = env.gui.addFolder('Panel material');
+            panelMaterial.addColor(material, 'color');
+            panelMaterial.add(material, 'metalness').min(0).max(1).step(0.0001);
+            panelMaterial.add(material, 'roughness').min(0).max(1);
         }
     }
 

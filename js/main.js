@@ -10,7 +10,7 @@ const env = environment.initEnvironment(true);
 environment.initListeners(env);
 
 const images = new imgs.Images(env);
-const lights = new lghts.Lights(env);
+// const lights = new lghts.Lights(env);
 
 /**
  * Controls
