@@ -28,6 +28,28 @@ export class Images {
     }
 
     addPanels(env) {
+        const N_PANELS = 29;
+        let angleStep = (Math.PI * 2.0) / N_PANELS;
+
+        for (let i = 0; i < N_PANELS; i++) {
+            const theta = i * angleStep;
+            const geometry = new THREE.BoxGeometry(1, 2, 0.3);
+            const material = new THREE.MeshBasicMaterial({
+                color: 0xffffff,
+                wireframe: true
+            });
+            const panel = new THREE.Mesh(geometry, material);
+
+            let x = 15.5 * Math.cos(theta);
+            let z = 15.5 * Math.sin(theta);
+
+            panel.rotation.y = Math.PI * 0.5 - theta;
+            panel.position.x = x;
+            panel.position.y = 1.1;
+            panel.position.z = z;
+
+            env.scene.add(panel);
+        }
     }
 
     addText(env) {
