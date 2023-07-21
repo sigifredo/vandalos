@@ -11,10 +11,11 @@ export class Images {
         this.addPanels(env);
         this.addText(env);
 
-        const domeGeometry = new THREE.SphereGeometry(30, 32, 16);
+        const domeGeometry = new THREE.SphereGeometry(60, 32, 16);
         const domeMaterial = new THREE.MeshStandardMaterial({
             color: 0xfffff0,
-            side: THREE.DoubleSide
+            side: THREE.DoubleSide,
+            transparent: true
         });
         const dome = new THREE.Mesh(domeGeometry, domeMaterial);
         env.scene.add(dome);
@@ -36,6 +37,7 @@ export class Images {
             domeGroup.add(domeMaterial, 'roughness').min(0).max(1);
             domeGroup.add(domeMaterial, 'wireframe');
             domeGroup.add(domeMaterial, 'wireframeLinewidth').min(1).max(10).step(0.01);
+            domeGroup.add(domeMaterial, 'opacity').min(0).max(1).step(0.01);
             // domeGroup.add(domeGeometry, 'radius').min(0).max(30).step(0.5);
         }
     }
