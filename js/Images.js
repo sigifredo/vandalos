@@ -30,35 +30,36 @@ export class Images {
         env.scene.add(pointLight);
 
         if (env.gui) {
-            const panelMaterial = env.gui.addFolder('Dome material');
-            panelMaterial.addColor(domeMaterial, 'color');
-            panelMaterial.add(domeMaterial, 'metalness').min(0).max(1).step(0.0001);
-            panelMaterial.add(domeMaterial, 'roughness').min(0).max(1);
-            panelMaterial.add(domeMaterial, 'wireframe');
-            // panelMaterial.add(domeGeometry, 'radius').min(0).max(30).step(0.5);
+            const domeGroup = env.gui.addFolder('Dome material');
+            domeGroup.addColor(domeMaterial, 'color');
+            domeGroup.add(domeMaterial, 'metalness').min(0).max(1).step(0.0001);
+            domeGroup.add(domeMaterial, 'roughness').min(0).max(1);
+            domeGroup.add(domeMaterial, 'wireframe');
+            domeGroup.add(domeMaterial, 'wireframeLinewidth').min(1).max(10).step(0.01);
+            // domeGroup.add(domeGeometry, 'radius').min(0).max(30).step(0.5);
         }
     }
 
     addFloor(env) {
-        const galleryGeometry = new THREE.CircleGeometry(15, 29);
-        const galleryMaterial = new THREE.MeshStandardMaterial({
+        const floorGeometry = new THREE.CircleGeometry(15, 29);
+        const floorMaterial = new THREE.MeshStandardMaterial({
             color: 0xc5ae8e,
             side: THREE.DoubleSide,
             // wireframe: true
         });
 
-        const gallery = new THREE.Mesh(galleryGeometry, galleryMaterial);
-        gallery.rotation.x = Math.PI * 0.5;
-        gallery.position.y = 0;
+        const floor = new THREE.Mesh(floorGeometry, floorMaterial);
+        floor.rotation.x = Math.PI * 0.5;
+        floor.position.y = 0;
 
-        env.scene.add(gallery);
+        env.scene.add(floor);
 
         if (env.gui) {
-            const panelMaterial = env.gui.addFolder('Floor material');
-            panelMaterial.addColor(galleryMaterial, 'color');
-            panelMaterial.add(galleryMaterial, 'metalness').min(0).max(1).step(0.0001);
-            panelMaterial.add(galleryMaterial, 'roughness').min(0).max(1);
-            panelMaterial.add(galleryMaterial, 'wireframe');
+            const floorGroup = env.gui.addFolder('Floor material');
+            floorGroup.addColor(floorMaterial, 'color');
+            floorGroup.add(floorMaterial, 'metalness').min(0).max(1).step(0.0001);
+            floorGroup.add(floorMaterial, 'roughness').min(0).max(1);
+            floorGroup.add(floorMaterial, 'wireframe');
         }
     }
 
@@ -90,11 +91,11 @@ export class Images {
         }
 
         if (env.gui) {
-            const panelMaterial = env.gui.addFolder('Panel material');
-            panelMaterial.addColor(material, 'color');
-            panelMaterial.add(material, 'metalness').min(0).max(1).step(0.0001);
-            panelMaterial.add(material, 'roughness').min(0).max(1);
-            panelMaterial.add(material, 'wireframe');
+            const panelGroup = env.gui.addFolder('Panel material');
+            panelGroup.addColor(material, 'color');
+            panelGroup.add(material, 'metalness').min(0).max(1).step(0.0001);
+            panelGroup.add(material, 'roughness').min(0).max(1);
+            panelGroup.add(material, 'wireframe');
         }
     }
 
