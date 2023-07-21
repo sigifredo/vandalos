@@ -21,7 +21,7 @@ export function initEnvironment(debug = false) {
     env.scene = new THREE.Scene();
 
     env.camera = new THREE.PerspectiveCamera(75, canvasSize.width/canvasSize.height);
-    env.camera.position.set(-3, 3, 3);
+    env.camera.position.set(-10, 10, 17);
     env.scene.add(env.camera);
 
     env.renderer = new THREE.WebGLRenderer({
@@ -36,6 +36,7 @@ export function initEnvironment(debug = false) {
     env.textureLoader = new THREE.TextureLoader();
 
     if (debug) {
+        env.scene.add(new THREE.AxesHelper());
         env.gui = new dat.GUI();
     }
 

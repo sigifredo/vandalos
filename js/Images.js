@@ -7,55 +7,59 @@ import { resources } from './resources.js';
 
 export class Images {
     constructor(env) {
+        this.addFloor(env);
+        this.addPanels(env);
+        this.addText(env);
+    }
 
-        let galleryMaterial = new THREE.MeshBasicMaterial({color: 0xc5ae8e, side: THREE.DoubleSide});
-        let galleries = new Array();
-
-        galleries.push(this.createGallery(10, 10, galleryMaterial));
-        galleries.push(this.createGallery(10, 3, galleryMaterial));
-        galleries.push(this.createGallery(3, 10, galleryMaterial));
-        galleries.push(this.createGallery(10, 3, galleryMaterial));
-
-        galleries[1].position.x = 10;
-        galleries[2].position.z = 10;
-        galleries[3].position.x = -10;
-
-        galleries.forEach(g => {
-            env.scene.add(g);
+    addFloor(env) {
+        const galleryGeometry = new THREE.CircleGeometry(15, 29);
+        const galleryMaterial = new THREE.MeshBasicMaterial({
+            color: 0xc5ae8e,
+            side: THREE.DoubleSide,
+            wireframe: true
         });
 
+        const gallery = new THREE.Mesh(galleryGeometry, galleryMaterial);
+        gallery.rotation.x = Math.PI * 0.5;
+        gallery.position.y = 0;
+
+        env.scene.add(gallery);
+    }
+
+    addPanels(env) {
+    }
+
+    addText(env) {
         const fontLoader = new FontLoader();
 
         fontLoader.load(
             '/assets/fonts/Roboto_Regular.json',
             (font) =>
             {
+                const textGeometry = new TextGeometry(
+                    'Vándalos',
+                    {
+                        font: font,
+                        size: 1,
+                        height: 0.4
+                    }
+                );
+
+                textGeometry.computeBoundingBox();
+                textGeometry.translate(
+                    -textGeometry.boundingBox.max.x * 0.5,
+                    textGeometry.boundingBox.max.y * 0.2,
+                    -textGeometry.boundingBox.max.z * 0.5
+                )
+
                 const textMesh = new THREE.Mesh(
-                    new TextGeometry(
-                        'Vándalos',
-                        {
-                            font: font,
-                            size: 1,
-                            height: 0.4
-                        }
-                    ),
+                    textGeometry,
                     new THREE.MeshBasicMaterial({color: 0x4a342e})
                 );
                 env.scene.add(textMesh);
             }
         )
-    }
-
-    createGallery(width, height, galleryMaterial) {
-        let gallery = new THREE.Mesh(
-            new THREE.PlaneGeometry(width, height),
-            galleryMaterial
-        );
-
-        gallery.rotation.x = Math.PI * 0.5;
-        gallery.position.y = 0;
-
-        return gallery;
     }
 
     update() {
