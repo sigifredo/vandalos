@@ -11,6 +11,14 @@ export class Images {
         this.addPanels(env);
         this.addText(env);
 
+        const domeGeometry = new THREE.SphereGeometry(30, 32, 16);
+        const domeMaterial = new THREE.MeshStandardMaterial({
+            color: 0xfffff0,
+            side: THREE.DoubleSide
+        });
+        const dome = new THREE.Mesh(domeGeometry, domeMaterial);
+        env.scene.add(dome);
+
         const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
         const pointLight = new THREE.PointLight(0xffffff, 0.5);
 
@@ -20,6 +28,15 @@ export class Images {
 
         env.scene.add(ambientLight);
         env.scene.add(pointLight);
+
+        if (env.gui) {
+            const panelMaterial = env.gui.addFolder('Dome material');
+            panelMaterial.addColor(domeMaterial, 'color');
+            panelMaterial.add(domeMaterial, 'metalness').min(0).max(1).step(0.0001);
+            panelMaterial.add(domeMaterial, 'roughness').min(0).max(1);
+            panelMaterial.add(domeMaterial, 'wireframe');
+            // panelMaterial.add(domeGeometry, 'radius').min(0).max(30).step(0.5);
+        }
     }
 
     addFloor(env) {
@@ -41,6 +58,7 @@ export class Images {
             panelMaterial.addColor(galleryMaterial, 'color');
             panelMaterial.add(galleryMaterial, 'metalness').min(0).max(1).step(0.0001);
             panelMaterial.add(galleryMaterial, 'roughness').min(0).max(1);
+            panelMaterial.add(galleryMaterial, 'wireframe');
         }
     }
 
@@ -76,6 +94,7 @@ export class Images {
             panelMaterial.addColor(material, 'color');
             panelMaterial.add(material, 'metalness').min(0).max(1).step(0.0001);
             panelMaterial.add(material, 'roughness').min(0).max(1);
+            panelMaterial.add(material, 'wireframe');
         }
     }
 
