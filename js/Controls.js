@@ -14,6 +14,8 @@ export class Controls {
         this.moveLeft = false;
         this.moveRight = false;
         this.pointerLockControls = new PointerLockControls(env.camera, document.body);
+        this.pointerLockControls.getObject().position.y = 1.0;
+        this.pointerLockControls.getObject().position.z = 5.0;
         this.velocity = new THREE.Vector3();
 
         const instructions = document.getElementById('instructions');
@@ -91,13 +93,9 @@ export class Controls {
     }
 
     update(delta) {
-        const time = performance.now();
-
         if (this.pointerLockControls.isLocked === true) {
-            this.velocity.x -= this.velocity.x * 10.0 * delta;
-            this.velocity.z -= this.velocity.z * 10.0 * delta;
-
-            this.velocity.y -= 9.8 * 100.0 * delta; // 100.0 = mass
+            this.velocity.x -= this.velocity.x * 80.0 * delta;
+            this.velocity.z -= this.velocity.z * 80.0 * delta;
 
             this.direction.z = Number(this.moveForward) - Number(this.moveBackward);
             this.direction.x = Number(this.moveRight) - Number(this.moveLeft);
@@ -110,29 +108,20 @@ export class Controls {
                 this.velocity.x -= this.direction.x * 400.0 * delta;
             }
 
-            /*
-			if (onObject === true) {
-				this.velocity.y = Math.max(0, this.velocity.y);
-				canJump = true;
-			}
-			*/
-
             this.pointerLockControls.moveRight(-this.velocity.x * delta);
             this.pointerLockControls.moveForward(-this.velocity.z * delta);
 
-            this.pointerLockControls.getObject().position.y += this.velocity.y * delta; // new behavior
-
-            if (this.pointerLockControls.getObject().position.y < 10) {
-                this.velocity.y = 0;
-                this.pointerLockControls.getObject().position.y = 10;
-
-                this.canJump = true;
+            if (this.position() > 13.0) {
+                this.pointerLockControls.moveRight(this.velocity.x * delta);
+                this.pointerLockControls.moveForward(this.velocity.z * delta);
             }
+
+            this.pointerLockControls.getObject().position.y += this.velocity.y * delta; // new behavior
         }
+    }
 
-        // prevTime = time;
-
-        // renderer.render(scene, camera);
+    position() {
+        return this.pointerLockControls.getObject().position.distanceTo(new THREE.Vector3(0, 1, 0));
     }
 }
 
