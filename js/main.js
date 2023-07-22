@@ -4,9 +4,9 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 // import { FirstPersonControls } from 'three/addons/controls/FirstPersonControls.js';
 // import { FirstPersonControls } from './FirstPersonControls';
-import { PointerLockControls } from 'three/addons/controls/PointerLockControls.js';
 import * as imgs from './Images';
 import * as lghts from './Lights';
+import { Controls } from './Controls';
 import * as environment from './environment';
 
 const env = environment.initEnvironment(true);
@@ -24,22 +24,7 @@ const images = new imgs.Images(env);
 
 // env.scene.add(controls.getObject());
 
-const controls = new PointerLockControls(env.camera, document.body);
-
-const instructions = document.getElementById('instructions');
-instructions.addEventListener('click', () => {
-    controls.lock();
-});
-
-controls.addEventListener('lock', () => {
-    instructions.style.display = 'none';
-});
-
-controls.addEventListener('unlock', () => {
-    instructions.style.display = 'flex';
-});
-
-env.scene.add( controls.getObject() );
+const controls = new Controls(env);
 
 /*
 if (env.gui) {
