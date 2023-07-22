@@ -10,17 +10,17 @@ export class Images {
         this.addPanels(env);
         this.addText(env);
 
-        const domeGeometry = new THREE.SphereGeometry(60, 32, 16);
-        const domeMaterial = new THREE.MeshStandardMaterial({
-            color: 0xfffff0,
-            side: THREE.DoubleSide,
-            transparent: true,
-            wireframe: true,
-        });
-        const dome = new THREE.Mesh(domeGeometry, domeMaterial);
-        env.scene.add(dome);
-
         if (env.gui) {
+            const domeGeometry = new THREE.SphereGeometry(60, 32, 16);
+            const domeMaterial = new THREE.MeshStandardMaterial({
+                color: 0xfffff0,
+                side: THREE.DoubleSide,
+                transparent: true,
+                wireframe: true,
+            });
+            const dome = new THREE.Mesh(domeGeometry, domeMaterial);
+            env.scene.add(dome);
+
             const domeGroup = env.gui.addFolder('Dome material');
             domeGroup.addColor(domeMaterial, 'color');
             domeGroup.add(domeMaterial, 'metalness').min(0).max(1).step(0.0001);
