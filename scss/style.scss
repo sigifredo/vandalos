@@ -1,5 +1,3 @@
-
-
 body {
     margin: 0;
 }
@@ -15,8 +13,7 @@ html {
     background-color: #1e1a20;
 }
 
-section:nth-child(odd)
-{
+section:nth-child(odd) {
     justify-content: flex-end;
 }
 
@@ -38,7 +35,7 @@ section:nth-child(odd)
     top: 0;
     width: 100%;
 
-    &> div {
+    & > div {
         display: flex;
         flex-direction: column;
         gap: 0.5em;
@@ -55,8 +52,7 @@ section:nth-child(odd)
     }
 }
 
-.section
-{
+.section {
     display: flex;
     align-items: center;
     height: 100vh;

@@ -1,5 +1,3 @@
-
-
 import * as THREE from 'three';
 import * as dat from 'lil-gui';
 
@@ -10,24 +8,24 @@ export function initEnvironment(debug = false) {
         renderer: null,
         scene: null,
         gui: null,
-        textureLoader: null
+        textureLoader: null,
     };
     env.canvas = document.querySelector('canvas.webgl');
     const canvasSize = {
         height: window.innerHeight,
-        width: window.innerWidth
+        width: window.innerWidth,
     };
 
     env.scene = new THREE.Scene();
 
-    env.camera = new THREE.PerspectiveCamera(75, canvasSize.width/canvasSize.height);
+    env.camera = new THREE.PerspectiveCamera(75, canvasSize.width / canvasSize.height);
     env.camera.position.set(0, 0, 0);
     // env.camera.position.set(-10, 10, 17);
     env.scene.add(env.camera);
 
     env.renderer = new THREE.WebGLRenderer({
         canvas: env.canvas,
-        alpha: true
+        alpha: true,
     });
     env.renderer.setClearColor(0x000000, 0);
     env.renderer.setSize(canvasSize.width, canvasSize.height);
@@ -65,12 +63,9 @@ export function initListeners(env) {
                 document.webkitExitFullscreen();
             }
         } else {
-            if (env.canvas.requestFullscreen)
-            {
+            if (env.canvas.requestFullscreen) {
                 env.canvas.requestFullscreen();
-            }
-            else if(env.canvas.webkitRequestFullscreen)
-            {
+            } else if (env.canvas.webkitRequestFullscreen) {
                 env.canvas.webkitRequestFullscreen();
             }
         }

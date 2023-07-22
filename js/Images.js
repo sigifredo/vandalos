@@ -1,5 +1,3 @@
-
-
 import * as THREE from 'three';
 import { FontLoader } from 'three/addons/loaders/FontLoader.js';
 import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
@@ -16,7 +14,7 @@ export class Images {
             color: 0xfffff0,
             side: THREE.DoubleSide,
             transparent: true,
-            wireframe: true
+            wireframe: true,
         });
         const dome = new THREE.Mesh(domeGeometry, domeMaterial);
         env.scene.add(dome);
@@ -105,37 +103,22 @@ export class Images {
     addText(env) {
         const fontLoader = new FontLoader();
 
-        fontLoader.load(
-            '/assets/fonts/Roboto_Regular.json',
-            (font) =>
-            {
-                const textGeometry = new TextGeometry(
-                    'Vándalos',
-                    {
-                        font: font,
-                        size: 1,
-                        height: 0.4
-                    }
-                );
+        fontLoader.load('/assets/fonts/Roboto_Regular.json', font => {
+            const textGeometry = new TextGeometry('Vándalos', {
+                font: font,
+                size: 1,
+                height: 0.4,
+            });
 
-                textGeometry.computeBoundingBox();
-                textGeometry.translate(
-                    -textGeometry.boundingBox.max.x * 0.5,
-                    textGeometry.boundingBox.max.y * 0.2,
-                    -textGeometry.boundingBox.max.z * 0.5
-                )
+            textGeometry.computeBoundingBox();
+            textGeometry.translate(-textGeometry.boundingBox.max.x * 0.5, textGeometry.boundingBox.max.y * 0.2, -textGeometry.boundingBox.max.z * 0.5);
 
-                const textMesh = new THREE.Mesh(
-                    textGeometry,
-                    new THREE.MeshBasicMaterial({color: 0x4a342e})
-                );
-                env.scene.add(textMesh);
-            }
-        )
+            const textMesh = new THREE.Mesh(textGeometry, new THREE.MeshBasicMaterial({ color: 0x4a342e }));
+            env.scene.add(textMesh);
+        });
     }
 
-    update() {
-    }
+    update() {}
 
     /*
     createImage(image) {

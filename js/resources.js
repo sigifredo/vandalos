@@ -1,5 +1,3 @@
-
-
 export let resources = [
     { type: 'img', path: 'assets/vandalo-0000.jpg' },
     { type: 'img', path: 'assets/vandalo-0001.jpg' },
