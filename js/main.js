@@ -50,7 +50,7 @@ const tick = () => {
     oldElapsedTime = elapsedTime;
 
     // Render
-    // controls.update();
+    controls.update(deltaTime);
     env.renderer.render(env.scene, env.camera);
 
     window.requestAnimationFrame(tick);
