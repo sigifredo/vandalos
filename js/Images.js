@@ -125,7 +125,7 @@ export class Images {
             panel.position.y = 1.1;
             panel.position.z = z;
 
-            env.scene.add(panel, this._getPointLight(lightPosition.x, lightPosition.y, lightPosition.z));
+            env.scene.add(panel, this._getPointLight(lightPosition.x, lightPosition.y, lightPosition.z, 0.7, 3));
         }
 
         if (env.gui) {
@@ -151,12 +151,12 @@ export class Images {
             textGeometry.translate(-textGeometry.boundingBox.max.x * 0.5, textGeometry.boundingBox.max.y * 0.2, -textGeometry.boundingBox.max.z * 0.5);
 
             const textMesh = new THREE.Mesh(textGeometry, new THREE.MeshBasicMaterial({ color: 0x4a342e }));
-            env.scene.add(textMesh, this._getPointLight(0, 1, 0));
+            env.scene.add(textMesh, this._getPointLight(0, 1, 0, 1 , 7));
         });
     }
 
-    _getPointLight(x, y, z) {
-        const light = new THREE.PointLight(0xff7d46, 0.7, 3);
+    _getPointLight(x, y, z, intensity, distance) {
+        const light = new THREE.PointLight(0xff7d46, intensity, distance);
         light.position.set(x, y, z);
 
         return light;
