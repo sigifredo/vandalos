@@ -153,6 +153,7 @@ class FirstPersonControls {
         scope.update = function () {
             let time = performance.now();
             let delta = (time - prevTime) / 1000;
+			let currentSpeed = scope.speed;
 
             velocity.y -= 9.8 * 100.0 * delta;
             velocity.x -= velocity.x * 10.0 * delta;
@@ -162,12 +163,15 @@ class FirstPersonControls {
             direction.x = Number(moveRight) - Number(moveLeft);
             direction.normalize();
 
-            let currentSpeed = scope.speed;
-
-            if (run && (moveForward || moveBackward || moveLeft || moveRight)) currentSpeed = currentSpeed + currentSpeed * 1.1;
-
-            if (moveForward || moveBackward) velocity.z -= direction.z * currentSpeed * delta;
-            if (moveLeft || moveRight) velocity.x -= direction.x * currentSpeed * delta;
+            if (run && (moveForward || moveBackward || moveLeft || moveRight)) {
+				currentSpeed = currentSpeed + currentSpeed * 1.1;
+			}
+            if (moveForward || moveBackward) {
+				velocity.z -= direction.z * currentSpeed * delta;
+			}
+            if (moveLeft || moveRight) {
+				velocity.x -= direction.x * currentSpeed * delta;
+			}
 
             scope.getObject().translateX(-velocity.x * delta);
             scope.getObject().translateZ(velocity.z * delta);
