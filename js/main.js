@@ -18,6 +18,9 @@ const images = new imgs.Images(env);
  * Controls
  */
 const controls = new FirstPersonControls(env.camera, env.canvas);
+controls.movementSpeed = 4;
+controls.lookSpeed = 0.1;
+
 env.scene.add(controls.getObject());
 
 /*
@@ -34,8 +37,6 @@ if (env.gui) {
 // controls = new FirstPersonControls(
 //     env.camera
 // );
-controls.movementSpeed = 4;
-controls.lookSpeed = 0.1;
 
 const clock = new THREE.Clock();
 let oldElapsedTime = 0;
@@ -46,7 +47,7 @@ const tick = () => {
     oldElapsedTime = elapsedTime;
 
     // Render
-    controls.update(deltaTime);
+    controls.update();
     env.renderer.render(env.scene, env.camera);
 
     window.requestAnimationFrame(tick);

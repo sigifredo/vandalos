@@ -15,7 +15,8 @@ export class Images {
         const domeMaterial = new THREE.MeshStandardMaterial({
             color: 0xfffff0,
             side: THREE.DoubleSide,
-            transparent: true
+            transparent: true,
+            wireframe: true
         });
         const dome = new THREE.Mesh(domeGeometry, domeMaterial);
         env.scene.add(dome);
