@@ -24,8 +24,22 @@ const images = new imgs.Images(env);
 
 // env.scene.add(controls.getObject());
 
-const controls = new PointerLockControls(env.camera, env.canvas);
-env.scene.add(controls.getObject());
+const controls = new PointerLockControls(env.camera, document.body);
+
+const instructions = document.getElementById('instructions');
+instructions.addEventListener('click', () => {
+    controls.lock();
+});
+
+controls.addEventListener('lock', () => {
+    instructions.style.display = 'none';
+});
+
+controls.addEventListener('unlock', () => {
+    instructions.style.display = 'flex';
+});
+
+env.scene.add( controls.getObject() );
 
 /*
 if (env.gui) {
