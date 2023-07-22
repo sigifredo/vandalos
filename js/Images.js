@@ -64,13 +64,9 @@ export class Images {
                 newPosition.x = Math.floor(Math.random() * 20 - 10) * 20;
                 newPosition.y = Math.floor(Math.random() * 20) * 20 + 10;
                 newPosition.z = Math.floor(Math.random() * 20 - 10) * 20;
-            } while (newPosition.distanceTo(origin) < 20.0);
+            } while (newPosition.distanceTo(origin) < 60.0);
 
             box.position.copy(newPosition);
-
-            // box.position.x = Math.floor(Math.random() * 20 - 10) * 20;
-            // box.position.y = Math.floor(Math.random() * 20) * 20 + 10;
-            // box.position.z = Math.floor(Math.random() * 20 - 10) * 20;
 
             env.scene.add(box);
         }
