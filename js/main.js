@@ -3,7 +3,8 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 // import { FirstPersonControls } from 'three/addons/controls/FirstPersonControls.js';
-import { FirstPersonControls } from './FirstPersonControls';
+// import { FirstPersonControls } from './FirstPersonControls';
+import { PointerLockControls } from 'three/addons/controls/PointerLockControls.js';
 import * as imgs from './Images';
 import * as lghts from './Lights';
 import * as environment from './environment';
@@ -17,10 +18,13 @@ const images = new imgs.Images(env);
 /**
  * Controls
  */
-const controls = new FirstPersonControls(env.camera, env.canvas);
-controls.movementSpeed = 4;
-controls.lookSpeed = 0.1;
+// const controls = new FirstPersonControls(env.camera, env.canvas);
+// controls.movementSpeed = 4;
+// controls.lookSpeed = 0.1;
 
+// env.scene.add(controls.getObject());
+
+const controls = new PointerLockControls(env.camera, env.canvas);
 env.scene.add(controls.getObject());
 
 /*
@@ -47,7 +51,7 @@ const tick = () => {
     oldElapsedTime = elapsedTime;
 
     // Render
-    controls.update();
+    // controls.update();
     env.renderer.render(env.scene, env.camera);
 
     window.requestAnimationFrame(tick);
