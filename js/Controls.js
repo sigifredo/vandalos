@@ -11,6 +11,7 @@ export class Controls {
         this.canJump = false;
         this.direction = new THREE.Vector3();
         this.moveBackward = false;
+        this.moveForward = false;
         this.moveLeft = false;
         this.moveRight = false;
         this.pointerLockControls = new PointerLockControls(env.camera, document.body);
