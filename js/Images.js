@@ -5,6 +5,7 @@ import { resources } from './resources.js';
 
 export class Images {
     constructor(env) {
+        this.addBackground(env);
         this.addFloor(env);
         this.addPanels(env);
         this.addText(env);
@@ -38,6 +39,51 @@ export class Images {
             domeGroup.add(domeMaterial, 'wireframeLinewidth').min(1).max(10).step(0.01);
             domeGroup.add(domeMaterial, 'opacity').min(0).max(1).step(0.01);
             // domeGroup.add(domeGeometry, 'radius').min(0).max(30).step(0.5);
+        }
+    }
+
+    addBackground(env) {
+        // objects
+        const color = new THREE.Color();
+        color.setHSL(Math.random() * 0.3 + 0.5, 0.75, Math.random() * 0.25 + 0.75, THREE.SRGBColorSpace);
+
+        const boxGeometry = new THREE.BoxGeometry(20, 20, 20).toNonIndexed();
+        const position = boxGeometry.attributes.position;
+        const colorsBox = [];
+
+        for (let i = 0, l = position.count; i < l; i++) {
+            color.setHSL(Math.random() * 0.3 + 0.5, 0.75, Math.random() * 0.25 + 0.75, THREE.SRGBColorSpace);
+            colorsBox.push(color.r, color.g, color.b);
+        }
+
+        boxGeometry.setAttribute('color', new THREE.Float32BufferAttribute(colorsBox, 3));
+        const origin = new THREE.Vector3(0, 0, 0);
+
+        for (let i = 0; i < 500; i++) {
+            const boxMaterial = new THREE.MeshPhongMaterial({
+                specular: 0xffffff,
+                flatShading: true,
+                vertexColors: true,
+            });
+            boxMaterial.color.setHSL(Math.random() * 0.2 + 0.5, 0.75, Math.random() * 0.25 + 0.75, THREE.SRGBColorSpace);
+
+            const box = new THREE.Mesh(boxGeometry, boxMaterial);
+
+            const newPosition = new THREE.Vector3();
+
+            do {
+                newPosition.x = Math.floor(Math.random() * 20 - 10) * 20;
+                newPosition.y = Math.floor(Math.random() * 20) * 20 + 10;
+                newPosition.z = Math.floor(Math.random() * 20 - 10) * 20;
+            } while (newPosition.distanceTo(origin) < 20.0);
+
+            box.position.copy(newPosition);
+
+            // box.position.x = Math.floor(Math.random() * 20 - 10) * 20;
+            // box.position.y = Math.floor(Math.random() * 20) * 20 + 10;
+            // box.position.z = Math.floor(Math.random() * 20 - 10) * 20;
+
+            env.scene.add(box);
         }
     }
 

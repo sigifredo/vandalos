@@ -17,6 +17,11 @@ export function initEnvironment(debug = false) {
     };
 
     env.scene = new THREE.Scene();
+    // env.scene.background = new THREE.Color(0xffffff);
+    env.scene.fog = new THREE.Fog(0xffffff, 0, 750);
+    // const light = new THREE.HemisphereLight(0xeeeeff, 0x777788, 2.5);
+    // light.position.set(0.5, 1, 0.75);
+    // env.scene.add(light);
 
     env.camera = new THREE.PerspectiveCamera(75, canvasSize.width / canvasSize.height);
     env.camera.position.set(0, 0, 0);
