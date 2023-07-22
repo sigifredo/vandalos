@@ -4,6 +4,7 @@ export class Lights {
     constructor(env) {
         const ambient = new THREE.AmbientLight(0xb9d5ff, 0.5);
         const directional = new THREE.DirectionalLight(0xb9d5ff, 0.5);
+
         directional.position.set(2, 2, -1);
 
         env.scene.add(ambient, directional);

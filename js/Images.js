@@ -111,15 +111,21 @@ export class Images {
             const geometry = new THREE.BoxGeometry(1, 2, 0.3);
             const panel = new THREE.Mesh(geometry, material);
 
+            const lightPosition = new THREE.Vector3();
+
             let x = 15.5 * Math.cos(theta);
             let z = 15.5 * Math.sin(theta);
+
+            lightPosition.x = 14.5 * Math.cos(theta);
+            lightPosition.y = 0.2;
+            lightPosition.z = 14.5 * Math.sin(theta);
 
             panel.rotation.y = Math.PI * 0.5 - theta;
             panel.position.x = x;
             panel.position.y = 1.1;
             panel.position.z = z;
 
-            env.scene.add(panel);
+            env.scene.add(panel, this._getPointLight(lightPosition.x, lightPosition.y, lightPosition.z));
         }
 
         if (env.gui) {
@@ -145,8 +151,15 @@ export class Images {
             textGeometry.translate(-textGeometry.boundingBox.max.x * 0.5, textGeometry.boundingBox.max.y * 0.2, -textGeometry.boundingBox.max.z * 0.5);
 
             const textMesh = new THREE.Mesh(textGeometry, new THREE.MeshBasicMaterial({ color: 0x4a342e }));
-            env.scene.add(textMesh);
+            env.scene.add(textMesh, this._getPointLight(0, 1, 0));
         });
+    }
+
+    _getPointLight(x, y, z) {
+        const light = new THREE.PointLight(0xff7d46, 0.7, 3);
+        light.position.set(x, y, z);
+
+        return light;
     }
 
     update() {}
