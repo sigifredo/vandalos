@@ -3,126 +3,133 @@
 import * as THREE from 'three';
 
 class FirstPersonControls {
-    constructor(camera, domElement, MouseMoveSensitivity = 0.002, speed = 800.0, jumpHeight = 350.0, height = 30.0) {
+    constructor(camera, domElement) {
         let scope = this;
 
 		this.domElement = domElement;
-        scope.MouseMoveSensitivity = MouseMoveSensitivity;
-        scope.speed = speed;
-        scope.height = height;
-        scope.jumpHeight = scope.height + jumpHeight;
+        scope.MouseMoveSensitivity = 0.002;
+        scope.speed = 800.0;
+        scope.height = 30.0;
+        scope.jumpHeight = scope.height + 350.0;
         scope.click = false;
 
 		scope.enabled = true;
-        var moveForward = false;
-        var moveBackward = false;
-        var moveLeft = false;
-        var moveRight = false;
-        var canJump = false;
-        var run = false;
+        let moveForward = false;
+        let moveBackward = false;
+        let moveLeft = false;
+        let moveRight = false;
+        let canJump = false;
+        let run = false;
 
-        var velocity = new THREE.Vector3();
-        var direction = new THREE.Vector3();
+        let velocity = new THREE.Vector3();
+        let direction = new THREE.Vector3();
 
-        var prevTime = performance.now();
+        let prevTime = performance.now();
 
         camera.rotation.set(0, 0, 0);
 
-        var pitchObject = new THREE.Object3D();
+        let pitchObject = new THREE.Object3D();
         pitchObject.add(camera);
 
-        var yawObject = new THREE.Object3D();
+        let yawObject = new THREE.Object3D();
         yawObject.position.y = 10;
         yawObject.add(pitchObject);
 
         const PI_2 = Math.PI / 2;
 
-        var onMouseMove = function (event) {
-            if (scope.enabled === false) return;
+        let onMouseMove = function (event) {
+            if (scope.enabled === true) {
+				let movementX = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
+				let movementY = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
 
-            var movementX = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
-            var movementY = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
+				yawObject.rotation.y -= movementX * scope.MouseMoveSensitivity;
+				pitchObject.rotation.x -= movementY * scope.MouseMoveSensitivity;
 
-            yawObject.rotation.y -= movementX * scope.MouseMoveSensitivity;
-            pitchObject.rotation.x -= movementY * scope.MouseMoveSensitivity;
-
-            pitchObject.rotation.x = Math.max(-PI_2, Math.min(PI_2, pitchObject.rotation.x));
+				pitchObject.rotation.x = Math.max(-PI_2, Math.min(PI_2, pitchObject.rotation.x));
+			}
         };
 
-        var onKeyDown = function (event) {
-			console.log(event);
-            if (scope.enabled === false) return;
+        let onKeyDown = function (event) {
+            if (scope.enabled === true) {
+				switch (event.key.toLowerCase()) {
+					case 'arrowup': // up
+					case 'w': // w
+						moveForward = true;
+						break;
 
-            switch (event.keyCode) {
-                case 38: // up
-                case 87: // w
-                    moveForward = true;
-                    break;
+					case 'arrowleft': // left
+					case 'a': // a
+						moveLeft = true;
+						break;
 
-                case 37: // left
-                case 65: // a
-                    moveLeft = true;
-                    break;
+					case 'arrowdown': // down
+					case 's': // s
+						moveBackward = true;
+						break;
 
-                case 40: // down
-                case 83: // s
-                    moveBackward = true;
-                    break;
+					case 'arrowright': // right
+					case 'd': // d
+						moveRight = true;
+						break;
 
-                case 39: // right
-                case 68: // d
-                    moveRight = true;
-                    break;
+					case ' ': // space
+						if (canJump === true) {
+							if (run === false) {
+								velocity.y += scope.jumpHeight;
+							} else {
+								velocity.y += scope.jumpHeight + 50
+							}
+						}
+						canJump = false;
+						break;
 
-                case 32: // space
-                    if (canJump === true) velocity.y += run === false ? scope.jumpHeight : scope.jumpHeight + 50;
-                    canJump = false;
-                    break;
-
-                case 16: // shift
-                    run = true;
-                    break;
-            }
+					case 'shift': // shift
+						run = true;
+						break;
+				}
+			}
         }.bind(this);
 
         var onKeyUp = function (event) {
-            if (scope.enabled === false) return;
+            if (scope.enabled === true) {
+				switch (event.key.toLowerCase()) {
+					case 'arrowup': // up
+					case 'w':
+						moveForward = false;
+						break;
 
-            switch (event.keyCode) {
-                case 38: // up
-                case 87: // w
-                    moveForward = false;
-                    break;
+					case 'arrowleft': // left
+					case 'a':
+						moveLeft = false;
+						break;
 
-                case 37: // left
-                case 65: // a
-                    moveLeft = false;
-                    break;
+					case 'arrowdown': // down
+					case 's':
+						moveBackward = false;
+						break;
 
-                case 40: // down
-                case 83: // s
-                    moveBackward = false;
-                    break;
+					case 'arrowright': // right
+					case 'd':
+						moveRight = false;
+						break;
 
-                case 39: // right
-                case 68: // d
-                    moveRight = false;
-                    break;
-
-                case 16: // shift
-                    run = false;
-                    break;
-            }
+					case 'shift': // shift
+						run = false;
+						break;
+				}
+			}
         }.bind(this);
 
         var onMouseDownClick = function (event) {
-            if (scope.enabled === false) return;
-            scope.click = true;
+            if (scope.enabled === true) {
+				scope.click = true;
+			}
         }.bind(this);
 
         var onMouseUpClick = function (event) {
-            if (scope.enabled === false) return;
-            scope.click = false;
+            if (scope.enabled === true) {
+				scope.click = false;
+			}
         }.bind(this);
 
         scope.dispose = function () {
@@ -144,8 +151,8 @@ class FirstPersonControls {
         };
 
         scope.update = function () {
-            var time = performance.now();
-            var delta = (time - prevTime) / 1000;
+            let time = performance.now();
+            let delta = (time - prevTime) / 1000;
 
             velocity.y -= 9.8 * 100.0 * delta;
             velocity.x -= velocity.x * 10.0 * delta;
@@ -155,7 +162,8 @@ class FirstPersonControls {
             direction.x = Number(moveRight) - Number(moveLeft);
             direction.normalize();
 
-            var currentSpeed = scope.speed;
+            let currentSpeed = scope.speed;
+
             if (run && (moveForward || moveBackward || moveLeft || moveRight)) currentSpeed = currentSpeed + currentSpeed * 1.1;
 
             if (moveForward || moveBackward) velocity.z -= direction.z * currentSpeed * delta;
