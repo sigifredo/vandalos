@@ -10,34 +10,26 @@ import * as environment from './environment';
 const env = environment.initEnvironment(true);
 environment.initListeners(env);
 
+const controls = new Controls(env);
 const images = new imgs.Images(env);
-// const lights = new lghts.Lights(env);
+const lights = new lghts.Lights(env);
 
 /**
  * Controls
  */
-// const controls = new FirstPersonControls(env.camera, env.canvas);
-// controls.movementSpeed = 4;
-// controls.lookSpeed = 0.1;
-
-// env.scene.add(controls.getObject());
-
-const controls = new Controls(env);
-
 /*
+let controls = null;
+
 if (env.gui) {
     controls = new OrbitControls(env.camera, env.canvas);
     controls.enabled = true;
     controls.enableDamping = true;
+    const instructions = document.getElementById('instructions');
+    instructions.style.display = 'none';
 } else {
-    controls = new FirstPersonControls(env.camera, env.canvas);
-    controls.movementSpeed = 4;
-    controls.lookSpeed = 0.1;
+    controls = new Controls(env);
 }
 */
-// controls = new FirstPersonControls(
-//     env.camera
-// );
 
 const clock = new THREE.Clock();
 let oldElapsedTime = 0;

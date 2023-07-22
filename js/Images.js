@@ -20,16 +20,6 @@ export class Images {
         const dome = new THREE.Mesh(domeGeometry, domeMaterial);
         env.scene.add(dome);
 
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-        const pointLight = new THREE.PointLight(0xffffff, 0.5);
-
-        pointLight.position.x = 2;
-        pointLight.position.y = 3;
-        pointLight.position.z = 4;
-
-        env.scene.add(ambientLight);
-        env.scene.add(pointLight);
-
         if (env.gui) {
             const domeGroup = env.gui.addFolder('Dome material');
             domeGroup.addColor(domeMaterial, 'color');
@@ -38,7 +28,6 @@ export class Images {
             domeGroup.add(domeMaterial, 'wireframe');
             domeGroup.add(domeMaterial, 'wireframeLinewidth').min(1).max(10).step(0.01);
             domeGroup.add(domeMaterial, 'opacity').min(0).max(1).step(0.01);
-            // domeGroup.add(domeGeometry, 'radius').min(0).max(30).step(0.5);
         }
     }
 
