@@ -81,7 +81,6 @@ export class Images {
         const floorMaterial = new THREE.MeshStandardMaterial({
             color: 0xc5ae8e,
             side: THREE.DoubleSide,
-            // wireframe: true
         });
 
         const floor = new THREE.Mesh(floorGeometry, floorMaterial);
@@ -172,10 +171,11 @@ export class Images {
                 height: 0.4,
             });
 
-            textGeometry.computeBoundingBox();
-            textGeometry.translate(-textGeometry.boundingBox.max.x * 0.5, textGeometry.boundingBox.max.y * 0.2, -textGeometry.boundingBox.max.z * 0.5);
-
             const textMesh = new THREE.Mesh(textGeometry, new THREE.MeshBasicMaterial({ color: 0x4a342e }));
+
+            textGeometry.center();
+            textMesh.position.y = 0.7;
+
             this.env.scene.add(textMesh);
             this.env.scene.add(this._getPointLight(0, 1, 0, 1, 7));
         });
