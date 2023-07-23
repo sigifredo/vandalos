@@ -72,6 +72,8 @@ section:nth-child(odd) {
 }
 
 .credits {
+    margin: 2em 0;
+
     h3 {
         font-size: 1.1em;
     }
@@ -88,7 +90,10 @@ section:nth-child(odd) {
             }
         }
         .modal-body {
-            h3, li, p, strong {
+            h3,
+            li,
+            p,
+            strong {
                 color: white;
             }
         }
