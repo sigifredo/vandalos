@@ -7,10 +7,10 @@ export class Images {
     constructor(env) {
         this.env = env;
 
-        this.addBackground(env);
-        this.addFloor(env);
-        this.addPanels(env);
-        this.addText(env);
+        this.addBackground();
+        this.addFloor();
+        this.addPanels();
+        this.addText();
 
         if (env.gui) {
             const domeGeometry = new THREE.SphereGeometry(60, 32, 16);
@@ -33,7 +33,7 @@ export class Images {
         }
     }
 
-    addBackground(env) {
+    addBackground() {
         // objects
         const color = new THREE.Color();
         color.setHSL(Math.random() * 0.3 + 0.5, 0.75, Math.random() * 0.25 + 0.75, THREE.SRGBColorSpace);
@@ -72,11 +72,11 @@ export class Images {
 
             box.position.copy(newPosition);
 
-            env.scene.add(box);
+            this.env.scene.add(box);
         }
     }
 
-    addFloor(env) {
+    addFloor() {
         const floorGeometry = new THREE.CircleGeometry(15, 29);
         const floorMaterial = new THREE.MeshStandardMaterial({
             color: 0xc5ae8e,
@@ -88,10 +88,10 @@ export class Images {
         floor.rotation.x = Math.PI * 0.5;
         floor.position.y = 0;
 
-        env.scene.add(floor);
+        this.env.scene.add(floor);
 
-        if (env.gui) {
-            const floorGroup = env.gui.addFolder('Floor material');
+        if (this.env.gui) {
+            const floorGroup = this.env.gui.addFolder('Floor material');
             floorGroup.addColor(floorMaterial, 'color');
             floorGroup.add(floorMaterial, 'metalness').min(0).max(1).step(0.0001);
             floorGroup.add(floorMaterial, 'roughness').min(0).max(1);
@@ -99,7 +99,7 @@ export class Images {
         }
     }
 
-    addPanels(env) {
+    addPanels() {
         let angleStep = (Math.PI * 2.0) / vandalsImages.length;
 
         const material = new THREE.MeshStandardMaterial({
@@ -119,11 +119,11 @@ export class Images {
             panel.position.y = 1.1;
             panel.position.z = z;
 
-            env.scene.add(panel);
+            this.env.scene.add(panel);
         });
 
-        if (env.gui) {
-            const panelGroup = env.gui.addFolder('Panel material');
+        if (this.env.gui) {
+            const panelGroup = this.env.gui.addFolder('Panel material');
             panelGroup.addColor(material, 'color');
             panelGroup.add(material, 'metalness').min(0).max(1).step(0.0001);
             panelGroup.add(material, 'roughness').min(0).max(1);
@@ -138,7 +138,6 @@ export class Images {
         const panel = new THREE.Mesh(panelGeometry, material);
 
         this.env.textureLoader.load('/assets/' + vandalImage, texture => {
-            console.log(texture.image);
             const ar = texture.image.width / texture.image.height;
             const width = 1.2;
             const height = width / ar;
@@ -163,7 +162,7 @@ export class Images {
         return group;
     }
 
-    addText(env) {
+    addText() {
         const fontLoader = new FontLoader();
 
         fontLoader.load('/assets/fonts/Roboto_Regular.json', font => {
@@ -177,8 +176,8 @@ export class Images {
             textGeometry.translate(-textGeometry.boundingBox.max.x * 0.5, textGeometry.boundingBox.max.y * 0.2, -textGeometry.boundingBox.max.z * 0.5);
 
             const textMesh = new THREE.Mesh(textGeometry, new THREE.MeshBasicMaterial({ color: 0x4a342e }));
-            env.scene.add(textMesh);
-            env.scene.add(this._getPointLight(0, 1, 0, 1, 7));
+            this.env.scene.add(textMesh);
+            this.env.scene.add(this._getPointLight(0, 1, 0, 1, 7));
         });
     }
 
@@ -188,8 +187,6 @@ export class Images {
 
         return light;
     }
-
-    update() {}
 }
 
 export default Images;
