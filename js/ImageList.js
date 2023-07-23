@@ -1,4 +1,4 @@
-export const resources = [
+export const ImageList = [
     'vandalo-0000.jpg',
     'vandalo-0001.jpg',
     'vandalo-0002.jpg',

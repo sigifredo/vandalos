@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { FontLoader } from 'three/addons/loaders/FontLoader.js';
 import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
-import { resources } from './resources.js';
+import { ImageList as imageList } from './ImageList.js';
 
 export class Images {
     constructor(env) {
@@ -98,7 +98,7 @@ export class Images {
     }
 
     addPanels(env) {
-        let angleStep = (Math.PI * 2.0) / resources.length;
+        let angleStep = (Math.PI * 2.0) / imageList.length;
 
         const material = new THREE.MeshStandardMaterial({
             color: 0xffffff,
@@ -106,7 +106,7 @@ export class Images {
         material.metalness = 0.2;
         material.roughness = 0.5;
 
-        resources.forEach((resource, index) => {
+        imageList.forEach((resource, index) => {
             const theta = index * angleStep;
             const geometry = new THREE.BoxGeometry(1, 2, 0.3);
             const panel = new THREE.Mesh(geometry, material);
