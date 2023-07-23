@@ -1,10 +1,12 @@
 import * as THREE from 'three';
 import { FontLoader } from 'three/addons/loaders/FontLoader.js';
 import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
-import { ImageList as imageList } from './ImageList.js';
+import { vandalsImages } from './VandalsImages.js';
 
 export class Images {
     constructor(env) {
+        this.env = env;
+
         this.addBackground(env);
         this.addFloor(env);
         this.addPanels(env);
@@ -98,7 +100,7 @@ export class Images {
     }
 
     addPanels(env) {
-        let angleStep = (Math.PI * 2.0) / imageList.length;
+        let angleStep = (Math.PI * 2.0) / vandalsImages.length;
 
         const material = new THREE.MeshStandardMaterial({
             color: 0xffffff,
@@ -106,26 +108,18 @@ export class Images {
         material.metalness = 0.2;
         material.roughness = 0.5;
 
-        imageList.forEach((resource, index) => {
+        vandalsImages.forEach((vandalImage, index) => {
             const theta = index * angleStep;
-            const geometry = new THREE.BoxGeometry(1, 2, 0.3);
-            const panel = new THREE.Mesh(geometry, material);
-
-            const lightPosition = new THREE.Vector3();
-
+            const panel = this._createPanel(vandalImage, material);
             let x = 15.5 * Math.cos(theta);
             let z = 15.5 * Math.sin(theta);
-
-            lightPosition.x = 14.5 * Math.cos(theta);
-            lightPosition.y = 0.2;
-            lightPosition.z = 14.5 * Math.sin(theta);
 
             panel.rotation.y = Math.PI * 0.5 - theta;
             panel.position.x = x;
             panel.position.y = 1.1;
             panel.position.z = z;
 
-            env.scene.add(panel, this._getPointLight(lightPosition.x, lightPosition.y, lightPosition.z, 0.7, 3));
+            env.scene.add(panel);
         });
 
         if (env.gui) {
@@ -135,6 +129,38 @@ export class Images {
             panelGroup.add(material, 'roughness').min(0).max(1);
             panelGroup.add(material, 'wireframe');
         }
+    }
+
+    _createPanel(vandalImage, material) {
+        const group = new THREE.Group();
+
+        const panelGeometry = new THREE.BoxGeometry(1, 2, 0.3);
+        const panel = new THREE.Mesh(panelGeometry, material);
+
+        this.env.textureLoader.load('/assets/' + vandalImage, texture => {
+            console.log(texture.image);
+            const ar = texture.image.width / texture.image.height;
+            const width = 1.2;
+            const height = width / ar;
+
+            const imageMaterial = new THREE.MeshBasicMaterial({ map: texture });
+            const imageGeometry = new THREE.PlaneGeometry(width, height);
+            const imagePlane = new THREE.Mesh(imageGeometry, imageMaterial);
+
+            imagePlane.position.z = -5;
+
+            group.add(imagePlane);
+        });
+
+        const lightPosition = new THREE.Vector3();
+
+        lightPosition.y = -0.9;
+        lightPosition.z = -1;
+
+        group.add(panel);
+        group.add(this._getPointLight(lightPosition.x, lightPosition.y, lightPosition.z, 0.7, 3));
+
+        return group;
     }
 
     addText(env) {
@@ -151,7 +177,8 @@ export class Images {
             textGeometry.translate(-textGeometry.boundingBox.max.x * 0.5, textGeometry.boundingBox.max.y * 0.2, -textGeometry.boundingBox.max.z * 0.5);
 
             const textMesh = new THREE.Mesh(textGeometry, new THREE.MeshBasicMaterial({ color: 0x4a342e }));
-            env.scene.add(textMesh, this._getPointLight(0, 1, 0, 1 , 7));
+            env.scene.add(textMesh);
+            env.scene.add(this._getPointLight(0, 1, 0, 1, 7));
         });
     }
 
@@ -163,48 +190,6 @@ export class Images {
     }
 
     update() {}
-
-    /*
-    createImage(image) {
-        const imgElement = document.createElement('img');
-        imgElement.className = 'element';
-        imgElement.setAttribute('src', image.path);
-        imgElement.setAttribute('data-type', image.type);
-        imgElement.onclick = (ev) => {
-            // controls.enabled = false;
-            let type = ev.target.getAttribute('data-type');
-        
-            if (type === 'img') {
-                console.log('image selected');
-                // selectImage(ev);
-            } else if (type === 'yt') {
-                console.log('video selected');
-                // selectYTVideo(ev);
-            }
-        };
-    
-        return this.createCSSRandomObject(imgElement);
-    }
-
-    createLine(point, material) {
-        const points = [];
-        points.push( new THREE.Vector3(0, 0, 0));
-        points.push(point);
-        const geometry = new THREE.BufferGeometry().setFromPoints(points);
-    
-        return new THREE.Line(geometry, material);
-    }
-
-    createCSSRandomObject(element) {
-        const objectCSS = new CSS3DObject(element);
-    
-        objectCSS.position.x = Math.random() * 4000 - 2000;
-        objectCSS.position.y = Math.random() * 4000 - 2000;
-        objectCSS.position.z = Math.random() * 4000 - 2000;
-    
-        return objectCSS;
-    }
-    */
 }
 
 export default Images;

@@ -74,7 +74,7 @@ export function initListeners(env) {
 
 function isDebugging() {
     const debug = new URLSearchParams(window.location.search).get('debug');
-    return (debug != null && debug === 'true');
+    return debug != null && debug === 'true';
 }
 
 export default initEnvironment;
