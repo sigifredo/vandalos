@@ -136,7 +136,7 @@ export class Images {
         const panelGeometry = new THREE.BoxGeometry(1, 2, 0.3);
         const panel = new THREE.Mesh(panelGeometry, material);
 
-        this.env.textureLoader.load('/assets/' + vandalImage, texture => {
+        this.env.textureLoader.load('/assets/vandals/' + vandalImage, texture => {
             const ar = texture.image.width / texture.image.height;
             const width = 1.2;
             const height = width / ar;
@@ -153,7 +153,7 @@ export class Images {
         const lightPosition = new THREE.Vector3();
 
         lightPosition.y = -0.9;
-        lightPosition.z = 1;
+        lightPosition.z = 1.1;
 
         group.add(panel);
         group.add(this._getPointLight(lightPosition.x, lightPosition.y, lightPosition.z, 0.7, 3));
@@ -163,21 +163,30 @@ export class Images {
 
     addText() {
         const fontLoader = new FontLoader();
+        const scope = this;
 
         fontLoader.load('/assets/fonts/Roboto_Regular.json', font => {
             const textGeometry = new TextGeometry('Vándalos', {
                 font: font,
                 size: 1,
                 height: 0.4,
+                curveSegments: 12,
+                bevelEnabled: true,
+                bevelThickness: 0.03,
+                bevelSize: 0.02,
+                bevelOffset: 0,
+                bevelSegments: 5,
             });
 
-            const textMesh = new THREE.Mesh(textGeometry, new THREE.MeshBasicMaterial({ color: 0x4a342e }));
+            scope.env.textureLoader.load('assets/matcap.jpg', texture => {
+                const textMesh = new THREE.Mesh(textGeometry, new THREE.MeshMatcapMaterial({ matcap: texture }));
 
-            textGeometry.center();
-            textMesh.position.y = 0.7;
+                textGeometry.center();
+                textMesh.position.y = 0.7;
 
-            this.env.scene.add(textMesh);
-            this.env.scene.add(this._getPointLight(0, 1, 0, 1, 7));
+                this.env.scene.add(textMesh);
+                this.env.scene.add(this._getPointLight(0, 1, 0, 1, 7));
+            });
         });
     }
 
