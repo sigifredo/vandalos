@@ -3,8 +3,8 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
-        <link rel="icon" href="/assets/favicon.png" type="image/png">
-        <link rel="stylesheet" href="css/style.css" />
+        <link rel="icon" href="./assets/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="./css/style.css" />
         <title>Vándalo</title>
     </head>
     <body>
@@ -15,7 +15,21 @@
                 <p>Mover: W-A-S-D</p>
                 <p>Mirar alrededor: Mouse</p>
                 <p>Regresar a este menú: Esc</p>
-                <button>Créditos</button>
+                <button id="btn-credits" class="credits">Créditos</button>
+            </div>
+        </div>
+        <div class="modal fade" id="mdl-credits" aria-hidden="true" aria-labelledby="mdl-credits-label" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="mdl-credits-label">Modal 1</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">Show a second modal and hide this one with the button below.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">Open second modal</button>
+                    </div>
+                </div>
             </div>
         </div>
         <script type="module" src="./js/main.js"></script>

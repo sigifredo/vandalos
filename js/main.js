@@ -1,5 +1,6 @@
+import 'bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import * as THREE from 'three';
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import * as imgs from './Images';
 import * as lghts from './Lights';
 import { Controls } from './Controls';
@@ -9,8 +10,8 @@ const env = environment.initEnvironment();
 environment.initListeners(env);
 
 const controls = new Controls(env);
-const images = new imgs.Images(env);
-const lights = new lghts.Lights(env);
+new imgs.Images(env);
+new lghts.Lights(env);
 
 const clock = new THREE.Clock();
 let oldElapsedTime = 0;

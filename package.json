@@ -1,10 +1,10 @@
 {
-    "name": "template",
+    "name": "vandalo",
     "version": "1.0.0",
-    "description": "Learning ThreeJS",
+    "description": "Proyecto de visualización de galería de imágenes de vándalos.",
     "main": "index.js",
     "scripts": {
-        "build": "npx vite build --base=/test/",
+        "build": "npx vite build --base=/visualizador-vandalo/",
         "dev": "npx vite",
         "test": "echo \"Error: no test specified\" && exit 1",
         "format": "prettier --write \"{,**/}*.{md,json,html,js,ts,scss,java}\"",
@@ -18,6 +18,7 @@
     "author": "Siegfried Nowhere <siegfried.artworks@gmail.com>",
     "license": "MIT",
     "dependencies": {
+        "bootstrap": "^5.3.0",
         "gsap": "^3.11.5",
         "lil-gui": "^0.18.1",
         "three": "^0.152.2"

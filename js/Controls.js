@@ -1,3 +1,4 @@
+import { Modal } from 'bootstrap';
 import * as THREE from 'three';
 import { PointerLockControls } from 'three/addons/controls/PointerLockControls.js';
 
@@ -18,6 +19,8 @@ export class Controls {
         this.pointerLockControls.getObject().position.y = 1.0;
         this.pointerLockControls.getObject().position.z = 5.0;
         this.velocity = new THREE.Vector3();
+
+        this._configCredits();
 
         const instructions = document.getElementById('instructions');
         instructions.addEventListener('click', () => {
@@ -91,6 +94,16 @@ export class Controls {
 
         document.addEventListener('keydown', onKeyDown);
         document.addEventListener('keyup', onKeyUp);
+    }
+
+    _configCredits() {
+        const btnCredits = document.getElementById('btn-credits');
+        const mdlCredits = new Modal(document.getElementById('mdl-credits'));
+
+        btnCredits.addEventListener('click', event => {
+            event.stopPropagation();
+            mdlCredits.show();
+        });
     }
 
     update(delta) {
