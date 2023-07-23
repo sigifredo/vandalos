@@ -25,3 +25,7 @@ Para minimizar el SCSS:
 ## Para formatear el código
 
     $ npm run format
+
+## Obtener fecha en formato ISO 8601
+
+    $ date -Iseconds

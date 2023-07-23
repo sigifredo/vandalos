@@ -3,7 +3,7 @@ import { FontLoader } from 'three/addons/loaders/FontLoader.js';
 import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
 import { vandalsImages } from './VandalsImages.js';
 
-export class Images {
+export class Geometry {
     constructor(env) {
         this.env = env;
 
@@ -136,7 +136,7 @@ export class Images {
         const panelGeometry = new THREE.BoxGeometry(1, 2, 0.3);
         const panel = new THREE.Mesh(panelGeometry, material);
 
-        this.env.textureLoader.load('/assets/vandals/' + vandalImage, texture => {
+        this.env.textureLoader.load('./assets/vandals/' + vandalImage, texture => {
             const ar = texture.image.width / texture.image.height;
             const width = 1.2;
             const height = width / ar;
@@ -165,7 +165,7 @@ export class Images {
         const fontLoader = new FontLoader();
         const scope = this;
 
-        fontLoader.load('/assets/fonts/Roboto_Regular.json', font => {
+        fontLoader.load('./assets/fonts/Roboto_Regular.json', font => {
             const textGeometry = new TextGeometry('Vándalos', {
                 font: font,
                 size: 1,
@@ -178,7 +178,7 @@ export class Images {
                 bevelSegments: 5,
             });
 
-            scope.env.textureLoader.load('assets/matcap.jpg', texture => {
+            scope.env.textureLoader.load('./assets/matcap.jpg', texture => {
                 const textMesh = new THREE.Mesh(textGeometry, new THREE.MeshMatcapMaterial({ matcap: texture }));
 
                 textGeometry.center();
@@ -198,4 +198,4 @@ export class Images {
     }
 }
 
-export default Images;
+export default Geometry;

@@ -1,10 +1,10 @@
 {
-    "name": "vandalo",
+    "name": "vandalos",
     "version": "1.0.0",
     "description": "Proyecto de visualización de galería de imágenes de vándalos.",
     "main": "index.js",
     "scripts": {
-        "build": "npx vite build --base=/visualizador-vandalo/",
+        "build": "npx vite build --base=/s/vandalos/",
         "dev": "npx vite",
         "test": "echo \"Error: no test specified\" && exit 1",
         "format": "prettier --write \"{,**/}*.{md,json,html,js,ts,scss,java}\"",

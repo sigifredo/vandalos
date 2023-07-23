@@ -1,8 +1,8 @@
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import * as THREE from 'three';
-import * as imgs from './Images';
-import * as lghts from './Lights';
+import { Geometry } from './Geometry';
+import { Lights } from './Lights';
 import { Controls } from './Controls';
 import * as environment from './environment';
 
@@ -10,8 +10,8 @@ const env = environment.initEnvironment();
 environment.initListeners(env);
 
 const controls = new Controls(env);
-new imgs.Images(env);
-new lghts.Lights(env);
+new Geometry(env);
+new Lights(env);
 
 const clock = new THREE.Clock();
 let oldElapsedTime = 0;
