@@ -71,6 +71,30 @@ section:nth-child(odd) {
     }
 }
 
+.credits {
+    h3 {
+        font-size: 1.1em;
+    }
+    .author {
+        list-style: none;
+    }
+}
+
+.modal {
+    .modal-dialog {
+        .modal-header {
+            .modal-title {
+                color: white;
+            }
+        }
+        .modal-body {
+            h3, li, p, strong {
+                color: white;
+            }
+        }
+    }
+}
+
 .section {
     display: flex;
     align-items: center;
