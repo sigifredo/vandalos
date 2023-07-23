@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import * as dat from 'lil-gui';
 
-export function initEnvironment(debug = false) {
+export function initEnvironment() {
     const env = {
         camera: null,
         canvas: null,
@@ -10,6 +10,7 @@ export function initEnvironment(debug = false) {
         gui: null,
         textureLoader: null,
     };
+    const debug = isDebugging();
     env.canvas = document.querySelector('canvas.webgl');
     const canvasSize = {
         height: window.innerHeight,
@@ -69,6 +70,11 @@ export function initListeners(env) {
             }
         }
     });
+}
+
+function isDebugging() {
+    const debug = new URLSearchParams(window.location.search).get('debug');
+    return (debug != null && debug === 'true');
 }
 
 export default initEnvironment;

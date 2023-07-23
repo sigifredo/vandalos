@@ -44,11 +44,13 @@ section:nth-child(odd) {
         font-size: 2em;
         margin: 0;
         text-align: center;
+        user-select: none;
     }
     p {
         font-size: 1.3em;
         margin: 0;
         text-align: center;
+        user-select: none;
     }
 }
 

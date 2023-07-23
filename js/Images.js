@@ -36,7 +36,8 @@ export class Images {
         const color = new THREE.Color();
         color.setHSL(Math.random() * 0.3 + 0.5, 0.75, Math.random() * 0.25 + 0.75, THREE.SRGBColorSpace);
 
-        const boxGeometry = new THREE.BoxGeometry(20, 20, 20).toNonIndexed();
+        // const boxGeometry = new THREE.BoxGeometry(20, 20, 20).toNonIndexed();
+        const boxGeometry = new THREE.BoxGeometry(10, 20, 3).toNonIndexed();
         const position = boxGeometry.attributes.position;
         const colorsBox = [];
 
@@ -48,7 +49,7 @@ export class Images {
         boxGeometry.setAttribute('color', new THREE.Float32BufferAttribute(colorsBox, 3));
         const origin = new THREE.Vector3(0, 0, 0);
 
-        for (let i = 0; i < 500; i++) {
+        for (let i = 0; i < 400; i++) {
             const boxMaterial = new THREE.MeshPhongMaterial({
                 specular: 0xffffff,
                 flatShading: true,
@@ -57,6 +58,7 @@ export class Images {
             boxMaterial.color.setHSL(Math.random() * 0.2 + 0.5, 0.75, Math.random() * 0.25 + 0.75, THREE.SRGBColorSpace);
 
             const box = new THREE.Mesh(boxGeometry, boxMaterial);
+            box.rotation.y = Math.random() * Math.PI * 2.0;
 
             const newPosition = new THREE.Vector3();
 
@@ -96,18 +98,16 @@ export class Images {
     }
 
     addPanels(env) {
-        const N_PANELS = 29;
-        let angleStep = (Math.PI * 2.0) / N_PANELS;
+        let angleStep = (Math.PI * 2.0) / resources.length;
 
         const material = new THREE.MeshStandardMaterial({
             color: 0xffffff,
-            // wireframe: true
         });
         material.metalness = 0.2;
         material.roughness = 0.5;
 
-        for (let i = 0; i < N_PANELS; i++) {
-            const theta = i * angleStep;
+        resources.forEach((resource, index) => {
+            const theta = index * angleStep;
             const geometry = new THREE.BoxGeometry(1, 2, 0.3);
             const panel = new THREE.Mesh(geometry, material);
 
@@ -126,7 +126,7 @@ export class Images {
             panel.position.z = z;
 
             env.scene.add(panel, this._getPointLight(lightPosition.x, lightPosition.y, lightPosition.z, 0.7, 3));
-        }
+        });
 
         if (env.gui) {
             const panelGroup = env.gui.addFolder('Panel material');
