@@ -114,7 +114,7 @@ export class Images {
             let x = 15.5 * Math.cos(theta);
             let z = 15.5 * Math.sin(theta);
 
-            panel.rotation.y = Math.PI * 0.5 - theta;
+            panel.rotation.y = -(Math.PI * 0.5 + theta);
             panel.position.x = x;
             panel.position.y = 1.1;
             panel.position.z = z;
@@ -146,7 +146,7 @@ export class Images {
             const imageGeometry = new THREE.PlaneGeometry(width, height);
             const imagePlane = new THREE.Mesh(imageGeometry, imageMaterial);
 
-            imagePlane.position.z = -5;
+            imagePlane.position.z = 0.25;
 
             group.add(imagePlane);
         });
@@ -154,7 +154,7 @@ export class Images {
         const lightPosition = new THREE.Vector3();
 
         lightPosition.y = -0.9;
-        lightPosition.z = -1;
+        lightPosition.z = 1;
 
         group.add(panel);
         group.add(this._getPointLight(lightPosition.x, lightPosition.y, lightPosition.z, 0.7, 3));
