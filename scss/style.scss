@@ -82,6 +82,20 @@ section:nth-child(odd) {
     }
 }
 
+.logos {
+    align-items: center;
+    display: flex;
+    gap: 1em;
+    justify-content: space-around;
+    margin: 5em 0;
+
+    .logo {
+        img {
+            width: 100%;
+        }
+    }
+}
+
 .modal {
     .modal-dialog {
         .modal-header {
