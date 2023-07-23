@@ -21,3 +21,7 @@ Para usarlo:
 Para minimizar el SCSS:
 
     $ sass --sourcemap=none --style=compressed scss/style.scss:css/style.css
+
+## Para formatear el código
+
+    $ npm run format
