@@ -35,10 +35,24 @@ section:nth-child(odd) {
     top: 0;
     width: 100%;
 
+    &.error {
+        cursor: default;
+
+        & > div,
+        & > h2 {
+            display: none;
+        }
+        p {
+            display: block;
+        }
+    }
     & > div {
         display: flex;
         flex-direction: column;
         gap: 0.5em;
+    }
+    & > p {
+        display: none;
     }
     button {
         &.credits {

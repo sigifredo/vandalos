@@ -23,77 +23,82 @@ export class Controls {
         this._configCredits();
 
         const instructions = document.getElementById('instructions');
-        instructions.addEventListener('click', () => {
-            scope.pointerLockControls.lock();
-        });
 
-        scope.pointerLockControls.addEventListener('lock', () => {
-            instructions.style.display = 'none';
-        });
+        if (this._isDevice()) {
+            instructions.classList.toggle('error');
+        } else {
+            instructions.addEventListener('click', () => {
+                scope.pointerLockControls.lock();
+            });
 
-        scope.pointerLockControls.addEventListener('unlock', () => {
-            instructions.style.display = 'flex';
-        });
+            scope.pointerLockControls.addEventListener('lock', () => {
+                instructions.style.display = 'none';
+            });
 
-        env.scene.add(scope.pointerLockControls.getObject());
+            scope.pointerLockControls.addEventListener('unlock', () => {
+                instructions.style.display = 'flex';
+            });
 
-        const onKeyDown = function (event) {
-            switch (event.code) {
-                case 'ArrowUp':
-                case 'KeyW':
-                    scope.moveForward = true;
-                    break;
+            env.scene.add(scope.pointerLockControls.getObject());
 
-                case 'ArrowLeft':
-                case 'KeyA':
-                    scope.moveLeft = true;
-                    break;
+            const onKeyDown = function (event) {
+                switch (event.code) {
+                    case 'ArrowUp':
+                    case 'KeyW':
+                        scope.moveForward = true;
+                        break;
 
-                case 'ArrowDown':
-                case 'KeyS':
-                    scope.moveBackward = true;
-                    break;
+                    case 'ArrowLeft':
+                    case 'KeyA':
+                        scope.moveLeft = true;
+                        break;
 
-                case 'ArrowRight':
-                case 'KeyD':
-                    scope.moveRight = true;
-                    break;
+                    case 'ArrowDown':
+                    case 'KeyS':
+                        scope.moveBackward = true;
+                        break;
 
-                case 'Space':
-                    if (scope.canJump === true) {
-                        velocity.y += 350;
-                    }
-                    scope.canJump = false;
-                    break;
-            }
-        };
+                    case 'ArrowRight':
+                    case 'KeyD':
+                        scope.moveRight = true;
+                        break;
 
-        const onKeyUp = function (event) {
-            switch (event.code) {
-                case 'ArrowUp':
-                case 'KeyW':
-                    scope.moveForward = false;
-                    break;
+                    case 'Space':
+                        if (scope.canJump === true) {
+                            velocity.y += 350;
+                        }
+                        scope.canJump = false;
+                        break;
+                }
+            };
 
-                case 'ArrowLeft':
-                case 'KeyA':
-                    scope.moveLeft = false;
-                    break;
+            const onKeyUp = function (event) {
+                switch (event.code) {
+                    case 'ArrowUp':
+                    case 'KeyW':
+                        scope.moveForward = false;
+                        break;
 
-                case 'ArrowDown':
-                case 'KeyS':
-                    scope.moveBackward = false;
-                    break;
+                    case 'ArrowLeft':
+                    case 'KeyA':
+                        scope.moveLeft = false;
+                        break;
 
-                case 'ArrowRight':
-                case 'KeyD':
-                    scope.moveRight = false;
-                    break;
-            }
-        };
+                    case 'ArrowDown':
+                    case 'KeyS':
+                        scope.moveBackward = false;
+                        break;
 
-        document.addEventListener('keydown', onKeyDown);
-        document.addEventListener('keyup', onKeyUp);
+                    case 'ArrowRight':
+                    case 'KeyD':
+                        scope.moveRight = false;
+                        break;
+                }
+            };
+
+            document.addEventListener('keydown', onKeyDown);
+            document.addEventListener('keyup', onKeyUp);
+        }
     }
 
     _configCredits() {
@@ -104,6 +109,10 @@ export class Controls {
             event.stopPropagation();
             mdlCredits.show();
         });
+    }
+
+    _isDevice() {
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     }
 
     update(delta) {
