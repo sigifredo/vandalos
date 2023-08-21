@@ -17,6 +17,7 @@ export function initEnvironment() {
         width: window.innerWidth,
     };
 
+    env.lights = areLightsActive();
     env.scene = new THREE.Scene();
     env.scene.fog = new THREE.Fog(0xffffff, 0, 750);
 
@@ -75,6 +76,16 @@ export function initListeners(env) {
 function isDebugging() {
     const debug = new URLSearchParams(window.location.search).get('debug');
     return debug != null && debug === 'true';
+}
+
+function areLightsActive() {
+    let lights = new URLSearchParams(window.location.search).get('lights');
+
+    if (lights !== null) {
+        return lights.toLowerCase() === 'true';
+    } else {
+        return false;
+    }
 }
 
 export default initEnvironment;

@@ -156,7 +156,10 @@ export class Geometry {
         lightPosition.z = 1.1;
 
         group.add(panel);
-        group.add(this._getPointLight(lightPosition.x, lightPosition.y, lightPosition.z, 0.7, 3));
+
+        if (this.env.lights) {
+            group.add(this._getPointLight(lightPosition.x, lightPosition.y, lightPosition.z, 0.7, 3));
+        }
 
         return group;
     }
@@ -185,7 +188,10 @@ export class Geometry {
                 textMesh.position.y = 0.7;
 
                 this.env.scene.add(textMesh);
-                this.env.scene.add(this._getPointLight(0, 1, 0, 1, 7));
+
+                if (this.env.lights) {
+                    this.env.scene.add(this._getPointLight(0, 1, 0, 1, 7));
+                }
             });
         });
     }
